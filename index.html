@@ -1,53 +1,61 @@
 <!DOCTYPE html>
 <html>
-<head> 
+
+<head>
+  <link rel="stylesheet" href="./reset.css">
   <link rel="stylesheet" href="./style.css">
   <title>Calculadora de Nutrientes</title>
- 
-    <script>
-      // Variáveis para armazenar as quantidades
-      let carboidratos = 0;
-      let proteinas = 0;
-      let gorduras = 0;
-  
-      // Função para atualizar as quantidades
-      function atualizarQuantidades(qtdCarboidratos, qtdProteinas, qtdGorduras) {
-        carboidratos += qtdCarboidratos;
-        proteinas += qtdProteinas;
-        gorduras += qtdGorduras;
+
+  <script>
+    // Variáveis para armazenar as quantidades
+    let carboidratos = 0;
+    let proteinas = 0;
+    let gorduras = 0;
+
+    // Função para atualizar as quantidades
+    function atualizarQuantidades(qtdCarboidratos, qtdProteinas, qtdGorduras) {
+      carboidratos += qtdCarboidratos;
+      proteinas += qtdProteinas;
+      gorduras += qtdGorduras;
+    }
+
+    // Função para adicionar alimentos
+    function adicionarAlimento() {
+      let nome = document.getElementById("nomeAlimento").value;
+      let qtdGramas = parseFloat(document.getElementById("qtdGramas").value);
+
+      if (nome === "feijão preto") {
+        atualizarQuantidades(63.25 * (qtdGramas / 100), 21.25 * (qtdGramas / 100), 0.9 * (qtdGramas / 100));
+      } else if (nome === "arroz branco") {
+        atualizarQuantidades(28 * (qtdGramas / 100), 2.7 * (qtdGramas / 100), 0.01 * (qtdGramas / 100));
+      } else if (nome === "frango") {
+        atualizarQuantidades(0 * (qtdGramas / 100), 27 * (qtdGramas / 100), 1 * (qtdGramas / 100));
+      } else if (nome === "ovo cozido") {
+        atualizarQuantidades(1.6 * (qtdGramas / 100), 13 * (qtdGramas / 100), 8.9 * (qtdGramas / 100));
+      } else if (nome === "cuscuz") {
+        atualizarQuantidades(1.6 * (qtdGramas / 100), 13 * (qtdGramas / 100), 8.9 * (qtdGramas / 100));
+      } else if (nome === "amendoim") {
+        atualizarQuantidades(0 * (qtdGramas / 100), 26 * (qtdGramas / 100), 49 * (qtdGramas / 100));
+      } else {
+        console.log("Alimento não reconhecido.");
+        return;
       }
-  
-      // Função para adicionar alimentos
-      function adicionarAlimento() {
-        let nome = document.getElementById("nomeAlimento").value;
-        let qtdGramas = parseFloat(document.getElementById("qtdGramas").value);
-  
-        if (nome === "feijão preto") {
-          atualizarQuantidades(63.25 * (qtdGramas / 100), 21.25 * (qtdGramas / 100), 0.9 * (qtdGramas / 100));
-        } else if (nome === "arroz branco") {
-          atualizarQuantidades(28 * (qtdGramas / 100), 2.7 * (qtdGramas / 100), 0.01 * (qtdGramas / 100));
-        } else if (nome === "frango") {
-          atualizarQuantidades(0 * (qtdGramas / 100), 27 * (qtdGramas / 100), 1 * (qtdGramas / 100));
-        } else if (nome === "ovo cozido") {
-          atualizarQuantidades(1.6 * (qtdGramas / 100), 13 * (qtdGramas / 100), 8.9 * (qtdGramas / 100));
-        } else if (nome === "cuscuz") {
-          atualizarQuantidades(1.6 * (qtdGramas / 100), 13 * (qtdGramas / 100), 8.9 * (qtdGramas / 100));
-        } else if (nome === "amendoim") {
-          atualizarQuantidades(0 * (qtdGramas / 100), 26 * (qtdGramas / 100), 49 * (qtdGramas / 100));
-        } else {
-          console.log("Alimento não reconhecido.");
-          return;
-        }
-  
-        document.getElementById("carboidratos").textContent = carboidratos.toFixed(2) + "g";
-        document.getElementById("proteinas").textContent = proteinas.toFixed(2) + "g";
-        document.getElementById("gorduras").textContent = gorduras.toFixed(2) + "g";
-      }
-    </script>
-  </head>
-  <body>
+
+      document.getElementById("carboidratos").textContent = carboidratos.toFixed(2) + "g";
+      document.getElementById("proteinas").textContent = proteinas.toFixed(2) + "g";
+      document.getElementById("gorduras").textContent = gorduras.toFixed(2) + "g";
+    }
+  </script>
+</head>
+
+<body>
+  <div class="titulo">
     <h1>Calculadora de Nutrientes</h1>
-  
+  </div>
+
+
+  <main class="principais" >
+
     <label for="nomeAlimento">Alimento:</label>
     <select id="nomeAlimento">
       <option value="feijão preto">Feijão Preto</option>
@@ -58,19 +66,24 @@
       <option value="amendoim">Amendoim</option>
     </select>
   
-    <br>
-  
+
+
+ 
     <label for="qtdGramas">Quantidade (em gramas):</label>
     <input type="number" id="qtdGramas" step="0.01" min="0">
-  
+
     <br>
-  
+
     <button onclick="adicionarAlimento()">Adicionar Alimento</button>
-  
+
     <h2>Quantidades Atualizadas:</h2>
     <p>Carboidratos: <span id="carboidratos">0g</span></p>
     <p>Proteínas: <span id="proteinas">0g</span></p>
     <p>Gorduras: <span id="gorduras">0g</span></p>
-  </body>
-  </html>
   
+</main>
+
+
+</body>
+
+</html>
