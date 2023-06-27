@@ -40,14 +40,15 @@ h1 {
 label {
   display: block;
   margin-bottom: 5px;
+  font-size: 50px;
 }
 
 select,
 input[type="number"] {
   padding: 10px;
-  font-size: 16px;
-  width: 300px;
-  margin-bottom: 10px;
+  font-size: 50px;
+  width: 100%;
+  margin-bottom: 1px;
 
 }
 
@@ -66,6 +67,8 @@ button:hover {
 
 h2 {
   margin-top: 20px;
+  font-size: 50px;
+
 }
 
 p {
@@ -76,6 +79,7 @@ p {
 
 span {
   font-weight: bold;
+  
 }
 
 /* Estilos para melhorar a acessibilidade */
@@ -84,6 +88,7 @@ button,
 input,
 select {
   outline: none;
+  font-size: 50px;
 }
 
 button:focus,
