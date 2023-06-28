@@ -12,6 +12,9 @@
     let proteinas = 0;
     let gorduras = 0;
 
+    // Histórico de alimentos adicionados
+    let historicoAlimentos = [];
+
     // Função para atualizar as quantidades
     function atualizarQuantidades(qtdCarboidratos, qtdProteinas, qtdGorduras) {
       carboidratos += qtdCarboidratos;
@@ -41,9 +44,75 @@
         return;
       }
 
+      const alimentoAdicionado = {
+        nome: nome,
+        quantidade: qtdGramas
+      };
+
+      historicoAlimentos.push(alimentoAdicionado);
+
       document.getElementById("carboidratos").textContent = carboidratos.toFixed(2) + "g";
       document.getElementById("proteinas").textContent = proteinas.toFixed(2) + "g";
       document.getElementById("gorduras").textContent = gorduras.toFixed(2) + "g";
+
+      atualizarHistorico();
+    }
+
+    // Função para remover o último alimento adicionado
+    function removerUltimoAlimento() {
+      const ultimoAlimento = historicoAlimentos.pop();
+      if (ultimoAlimento) {
+        let qtdCarboidratosRemovidos = 0;
+        let qtdProteinasRemovidas = 0;
+        let qtdGordurasRemovidas = 0;
+
+        if (ultimoAlimento.nome === "feijão preto") {
+          qtdCarboidratosRemovidos = 63.25 * (ultimoAlimento.quantidade / 100);
+          qtdProteinasRemovidas = 21.25 * (ultimoAlimento.quantidade / 100);
+          qtdGordurasRemovidas = 0.9 * (ultimoAlimento.quantidade / 100);
+        } else if (ultimoAlimento.nome === "arroz branco") {
+          qtdCarboidratosRemovidos = 28 * (ultimoAlimento.quantidade / 100);
+          qtdProteinasRemovidas = 2.7 * (ultimoAlimento.quantidade / 100);
+          qtdGordurasRemovidas = 0.01 * (ultimoAlimento.quantidade / 100);
+        } else if (ultimoAlimento.nome === "frango") {
+          qtdProteinasRemovidas = 27 * (ultimoAlimento.quantidade / 100);
+          qtdGordurasRemovidas = 1 * (ultimoAlimento.quantidade / 100);
+        } else if (ultimoAlimento.nome === "ovo cozido") {
+          qtdCarboidratosRemovidos = 1.6 * (ultimoAlimento.quantidade / 100);
+          qtdProteinasRemovidas = 13 * (ultimoAlimento.quantidade / 100);
+          qtdGordurasRemovidas = 8.9 * (ultimoAlimento.quantidade / 100);
+        } else if (ultimoAlimento.nome === "cuscuz") {
+          qtdCarboidratosRemovidos = 1.6 * (ultimoAlimento.quantidade / 100);
+          qtdProteinasRemovidas = 13 * (ultimoAlimento.quantidade / 100);
+          qtdGordurasRemovidas = 8.9 * (ultimoAlimento.quantidade / 100);
+        } else if (ultimoAlimento.nome === "amendoim") {
+          qtdProteinasRemovidas = 26 * (ultimoAlimento.quantidade / 100);
+          qtdGordurasRemovidas = 49 * (ultimoAlimento.quantidade / 100);
+        }
+
+        carboidratos -= qtdCarboidratosRemovidos;
+        proteinas -= qtdProteinasRemovidas;
+        gorduras -= qtdGordurasRemovidas;
+
+        document.getElementById("carboidratos").textContent = carboidratos.toFixed(2) + "g";
+        document.getElementById("proteinas").textContent = proteinas.toFixed(2) + "g";
+        document.getElementById("gorduras").textContent = gorduras.toFixed(2) + "g";
+
+        atualizarHistorico();
+      }
+    }
+
+    // Função para atualizar o histórico de alimentos adicionados
+    function atualizarHistorico() {
+      const historicoContainer = document.getElementById("historicoAlimentos");
+      historicoContainer.innerHTML = "";
+
+      for (let i = 0; i < historicoAlimentos.length; i++) {
+        const alimento = historicoAlimentos[i];
+        const itemHistorico = document.createElement("li");
+        itemHistorico.textContent = alimento.nome + " (" + alimento.quantidade + "g)";
+        historicoContainer.appendChild(itemHistorico);
+      }
     }
   </script>
 </head>
@@ -53,9 +122,7 @@
     <h1>Calculadora de Nutrientes</h1>
   </div>
 
-
-  <main class="principais" >
-
+  <main class="principais">
     <label for="nomeAlimento">Alimento:</label>
     <select id="nomeAlimento">
       <option value="feijão preto">Feijão Preto</option>
@@ -65,24 +132,24 @@
       <option value="cuscuz">Cuscuz</option>
       <option value="amendoim">Amendoim</option>
     </select>
-  
 
-
- 
     <label for="qtdGramas">Quantidade (em gramas):</label>
     <input type="number" id="qtdGramas" step="0.01" min="0">
 
     <br>
 
     <button onclick="adicionarAlimento()">Adicionar Alimento</button>
+    <button onclick="removerUltimoAlimento()">Remover Último Alimento Adicionado</button>
+.
 
     <h2>Quantidades Atualizadas:</h2>
     <p>Carboidratos: <span id="carboidratos">0g</span></p>
     <p>Proteínas: <span id="proteinas">0g</span></p>
     <p>Gorduras: <span id="gorduras">0g</span></p>
-  
-</main>
 
+    <h2>Histórico de Alimentos Adicionados:</h2>
+    <ul id="historicoAlimentos"></ul>
+  </main>
 
 </body>
 
