@@ -39,6 +39,8 @@
         atualizarQuantidades(1.6 * (qtdGramas / 100), 13 * (qtdGramas / 100), 8.9 * (qtdGramas / 100));
       } else if (nome === "amendoim") {
         atualizarQuantidades(0 * (qtdGramas / 100), 26 * (qtdGramas / 100), 49 * (qtdGramas / 100));
+      } else if (nome === "proteína de soja") {
+        atualizarQuantidades(10 * (qtdGramas / 100), 17 * (qtdGramas / 100), 9 * (qtdGramas / 100));
       } else {
         console.log("Alimento não reconhecido.");
         return;
@@ -60,46 +62,54 @@
 
     // Função para remover o último alimento adicionado
     function removerUltimoAlimento() {
-      const ultimoAlimento = historicoAlimentos.pop();
-      if (ultimoAlimento) {
-        let qtdCarboidratosRemovidos = 0;
-        let qtdProteinasRemovidas = 0;
-        let qtdGordurasRemovidas = 0;
-
-        if (ultimoAlimento.nome === "feijão preto") {
-          qtdCarboidratosRemovidos = 63.25 * (ultimoAlimento.quantidade / 100);
-          qtdProteinasRemovidas = 21.25 * (ultimoAlimento.quantidade / 100);
-          qtdGordurasRemovidas = 0.9 * (ultimoAlimento.quantidade / 100);
-        } else if (ultimoAlimento.nome === "arroz branco") {
-          qtdCarboidratosRemovidos = 28 * (ultimoAlimento.quantidade / 100);
-          qtdProteinasRemovidas = 2.7 * (ultimoAlimento.quantidade / 100);
-          qtdGordurasRemovidas = 0.01 * (ultimoAlimento.quantidade / 100);
-        } else if (ultimoAlimento.nome === "frango") {
-          qtdProteinasRemovidas = 27 * (ultimoAlimento.quantidade / 100);
-          qtdGordurasRemovidas = 1 * (ultimoAlimento.quantidade / 100);
-        } else if (ultimoAlimento.nome === "ovo cozido") {
-          qtdCarboidratosRemovidos = 1.6 * (ultimoAlimento.quantidade / 100);
-          qtdProteinasRemovidas = 13 * (ultimoAlimento.quantidade / 100);
-          qtdGordurasRemovidas = 8.9 * (ultimoAlimento.quantidade / 100);
-        } else if (ultimoAlimento.nome === "cuscuz") {
-          qtdCarboidratosRemovidos = 1.6 * (ultimoAlimento.quantidade / 100);
-          qtdProteinasRemovidas = 13 * (ultimoAlimento.quantidade / 100);
-          qtdGordurasRemovidas = 8.9 * (ultimoAlimento.quantidade / 100);
-        } else if (ultimoAlimento.nome === "amendoim") {
-          qtdProteinasRemovidas = 26 * (ultimoAlimento.quantidade / 100);
-          qtdGordurasRemovidas = 49 * (ultimoAlimento.quantidade / 100);
-        }
-
-        carboidratos -= qtdCarboidratosRemovidos;
-        proteinas -= qtdProteinasRemovidas;
-        gorduras -= qtdGordurasRemovidas;
-
-        document.getElementById("carboidratos").textContent = carboidratos.toFixed(2) + "g";
-        document.getElementById("proteinas").textContent = proteinas.toFixed(2) + "g";
-        document.getElementById("gorduras").textContent = gorduras.toFixed(2) + "g";
-
-        atualizarHistorico();
+      if (historicoAlimentos.length === 0) {
+        console.log("Nenhum alimento adicionado.");
+        return;
       }
+
+      const ultimoAlimento = historicoAlimentos.pop();
+
+      let qtdCarboidratosRemovidos = 0;
+      let qtdProteinasRemovidas = 0;
+      let qtdGordurasRemovidas = 0;
+
+      if (ultimoAlimento.nome === "feijão preto") {
+        qtdCarboidratosRemovidos = 63.25 * (ultimoAlimento.quantidade / 100);
+        qtdProteinasRemovidas = 21.25 * (ultimoAlimento.quantidade / 100);
+        qtdGordurasRemovidas = 0.9 * (ultimoAlimento.quantidade / 100);
+      } else if (ultimoAlimento.nome === "arroz branco") {
+        qtdCarboidratosRemovidos = 28 * (ultimoAlimento.quantidade / 100);
+        qtdProteinasRemovidas = 2.7 * (ultimoAlimento.quantidade / 100);
+        qtdGordurasRemovidas = 0.01 * (ultimoAlimento.quantidade / 100);
+      } else if (ultimoAlimento.nome === "frango") {
+        qtdProteinasRemovidas = 27 * (ultimoAlimento.quantidade / 100);
+        qtdGordurasRemovidas = 1 * (ultimoAlimento.quantidade / 100);
+      } else if (ultimoAlimento.nome === "ovo cozido") {
+        qtdCarboidratosRemovidos = 1.6 * (ultimoAlimento.quantidade / 100);
+        qtdProteinasRemovidas = 13 * (ultimoAlimento.quantidade / 100);
+        qtdGordurasRemovidas = 8.9 * (ultimoAlimento.quantidade / 100);
+      } else if (ultimoAlimento.nome === "cuscuz") {
+        qtdCarboidratosRemovidos = 1.6 * (ultimoAlimento.quantidade / 100);
+        qtdProteinasRemovidas = 13 * (ultimoAlimento.quantidade / 100);
+        qtdGordurasRemovidas = 8.9 * (ultimoAlimento.quantidade / 100);
+      } else if (ultimoAlimento.nome === "amendoim") {
+        qtdProteinasRemovidas = 26 * (ultimoAlimento.quantidade / 100);
+        qtdGordurasRemovidas = 49 * (ultimoAlimento.quantidade / 100);
+      } else if (ultimoAlimento.nome === "proteína de soja") {
+        qtdCarboidratosRemovidos = 10 * (ultimoAlimento.quantidade / 100);
+        qtdProteinasRemovidas = 17 * (ultimoAlimento.quantidade / 100);
+        qtdGordurasRemovidas = 9 * (ultimoAlimento.quantidade / 100);
+      }
+
+      carboidratos -= qtdCarboidratosRemovidos;
+      proteinas -= qtdProteinasRemovidas;
+      gorduras -= qtdGordurasRemovidas;
+
+      document.getElementById("carboidratos").textContent = carboidratos.toFixed(2) + "g";
+      document.getElementById("proteinas").textContent = proteinas.toFixed(2) + "g";
+      document.getElementById("gorduras").textContent = gorduras.toFixed(2) + "g";
+
+      atualizarHistorico();
     }
 
     // Função para atualizar o histórico de alimentos adicionados
@@ -108,9 +118,8 @@
       historicoContainer.innerHTML = "";
 
       for (let i = 0; i < historicoAlimentos.length; i++) {
-        const alimento = historicoAlimentos[i];
         const itemHistorico = document.createElement("li");
-        itemHistorico.textContent = alimento.nome + " (" + alimento.quantidade + "g)";
+        itemHistorico.textContent = historicoAlimentos[i].nome + " (" + historicoAlimentos[i].quantidade.toFixed(2) + "g)";
         historicoContainer.appendChild(itemHistorico);
       }
     }
@@ -131,6 +140,7 @@
       <option value="ovo cozido">Ovo Cozido</option>
       <option value="cuscuz">Cuscuz</option>
       <option value="amendoim">Amendoim</option>
+      <option value="proteína de soja">Proteína de Soja</option>
     </select>
 
     <label for="qtdGramas">Quantidade (em gramas):</label>
@@ -140,7 +150,6 @@
 
     <button onclick="adicionarAlimento()">Adicionar Alimento</button>
     <button onclick="removerUltimoAlimento()">Remover Último Alimento Adicionado</button>
-.
 
     <h2>Quantidades Atualizadas:</h2>
     <p>Carboidratos: <span id="carboidratos">0g</span></p>
@@ -154,3 +163,4 @@
 </body>
 
 </html>
+
